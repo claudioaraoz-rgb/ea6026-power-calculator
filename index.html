@@ -236,6 +236,259 @@
         .export-button:active, .import-button:active {
             transform: translateY(0);
         }
+        
+        /* Wiring Schematic Styles */
+        .schematic-wrapper {
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+        }
+        
+        .schematic-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .schematic-header h2 {
+            color: #495057;
+            margin: 0 0 10px 0;
+        }
+        
+        .schematic-header p {
+            color: #6c757d;
+            margin: 0;
+            font-style: italic;
+        }
+        
+        .input-label-schem {
+            position: absolute;
+            left: 20px;
+            top: 80px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .schematic {
+            position: relative;
+            height: 400px;
+            margin: 40px 0;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            overflow-x: auto;
+            min-width: 1100px;
+        }
+        
+        .line {
+            position: absolute;
+            background: #333;
+            height: 4px;
+        }
+        
+        .line-l1 { top: 80px; left: 120px; width: 950px; }
+        .line-l2 { top: 160px; left: 120px; width: 950px; }
+        .line-l3 { top: 240px; left: 120px; width: 950px; }
+        .neutral-line { top: 320px; left: 120px; width: 950px; background: #888; height: 3px; }
+        .ground-line { top: 340px; left: 120px; width: 950px; background: #888; height: 3px; }
+        
+        .line-label {
+            position: absolute;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .line-label.l1 { top: 60px; left: 90px; }
+        .line-label.l2 { top: 140px; left: 90px; }
+        .line-label.l3 { top: 220px; left: 90px; }
+        .line-label.neutral { top: 310px; left: 50px; }
+        .line-label.ground { top: 330px; left: 60px; }
+        
+        .header-labels-schem {
+            position: absolute;
+            top: 20px;
+            left: 150px;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: bold;
+            width: 200px;
+        }
+        
+        .breaker {
+            position: absolute;
+            width: 80px;
+            height: 60px;
+            background: #f0f0f0;
+            border: 2px solid #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .breaker.cb1 { top: 50px; left: 150px; }
+        .breaker.cb2 { top: 130px; left: 150px; }
+        .breaker.cb3 { top: 210px; left: 150px; }
+        
+        .outlet-schem {
+            position: absolute;
+            width: 45px;
+            height: 30px;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            background: white;
+        }
+        
+        .outlet-schem.c13 {
+            background: #f8f9fa;
+        }
+        
+        .outlet-schem.c19 {
+            background: #e3f2fd;
+            width: 55px;
+            height: 35px;
+        }
+        
+        .outlet-schem.aux {
+            background: #fff3e0;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+        
+        /* CB1 outlets (L1/L2) */
+        .outlet-schem.out1 { top: 100px; left: 280px; }
+        .outlet-schem.out4 { top: 100px; left: 360px; }
+        .outlet-schem.out7 { top: 100px; left: 440px; }
+        .outlet-schem.out10 { top: 100px; left: 520px; }
+        .outlet-schem.out13 { top: 100px; left: 600px; }
+        .outlet-schem.out16 { top: 100px; left: 680px; }
+        .outlet-schem.out19 { top: 100px; left: 760px; }
+        .outlet-schem.out22 { top: 100px; left: 840px; }
+        .outlet-schem.out25 { top: 100px; left: 940px; }
+        
+        /* CB2 outlets (L2/L3) */
+        .outlet-schem.out2 { top: 180px; left: 280px; }
+        .outlet-schem.out5 { top: 180px; left: 360px; }
+        .outlet-schem.out8 { top: 180px; left: 440px; }
+        .outlet-schem.out11 { top: 180px; left: 520px; }
+        .outlet-schem.out14 { top: 180px; left: 600px; }
+        .outlet-schem.out17 { top: 180px; left: 680px; }
+        .outlet-schem.out20 { top: 180px; left: 760px; }
+        .outlet-schem.out23 { top: 180px; left: 840px; }
+        .outlet-schem.out26 { top: 180px; left: 940px; }
+        
+        /* CB3 outlets (L3/L1) */
+        .outlet-schem.out3 { top: 260px; left: 280px; }
+        .outlet-schem.out6 { top: 260px; left: 360px; }
+        .outlet-schem.out9 { top: 260px; left: 440px; }
+        .outlet-schem.out12 { top: 260px; left: 520px; }
+        .outlet-schem.out15 { top: 260px; left: 600px; }
+        .outlet-schem.out18 { top: 260px; left: 680px; }
+        .outlet-schem.out21 { top: 260px; left: 760px; }
+        .outlet-schem.out24 { top: 260px; left: 840px; }
+        .outlet-schem.out27 { top: 260px; left: 940px; }
+        
+        .outlet-number {
+            position: absolute;
+            top: -18px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #333;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .connection-line {
+            position: absolute;
+            background: #666;
+            height: 1px;
+        }
+        
+        /* Vertical connection lines from breakers to outlets */
+        .conn-cb1-1 { position: absolute; top: 85px; left: 300px; width: 1px; height: 15px; background: #666; }
+        .conn-cb1-4 { position: absolute; top: 85px; left: 380px; width: 1px; height: 15px; background: #666; }
+        .conn-cb1-7 { position: absolute; top: 85px; left: 467px; width: 1px; height: 15px; background: #666; }
+        .conn-cb1-10 { position: absolute; top: 85px; left: 540px; width: 1px; height: 15px; background: #666; }
+        .conn-cb1-13 { position: absolute; top: 85px; left: 620px; width: 1px; height: 15px; background: #666; }
+        .conn-cb1-16 { position: absolute; top: 85px; left: 700px; width: 1px; height: 15px; background: #666; }
+        .conn-cb1-19 { position: absolute; top: 85px; left: 780px; width: 1px; height: 15px; background: #666; }
+        .conn-cb1-22 { position: absolute; top: 85px; left: 867px; width: 1px; height: 15px; background: #666; }
+        .conn-cb1-25 { position: absolute; top: 85px; left: 960px; width: 1px; height: 15px; background: #666; }
+        
+        .conn-cb2-2 { position: absolute; top: 165px; left: 300px; width: 1px; height: 15px; background: #666; }
+        .conn-cb2-5 { position: absolute; top: 165px; left: 380px; width: 1px; height: 15px; background: #666; }
+        .conn-cb2-8 { position: absolute; top: 165px; left: 467px; width: 1px; height: 15px; background: #666; }
+        .conn-cb2-11 { position: absolute; top: 165px; left: 547px; width: 1px; height: 15px; background: #666; }
+        .conn-cb2-14 { position: absolute; top: 165px; left: 620px; width: 1px; height: 15px; background: #666; }
+        .conn-cb2-17 { position: absolute; top: 165px; left: 700px; width: 1px; height: 15px; background: #666; }
+        .conn-cb2-20 { position: absolute; top: 165px; left: 780px; width: 1px; height: 15px; background: #666; }
+        .conn-cb2-23 { position: absolute; top: 165px; left: 867px; width: 1px; height: 15px; background: #666; }
+        .conn-cb2-26 { position: absolute; top: 165px; left: 960px; width: 1px; height: 15px; background: #666; }
+        
+        .conn-cb3-3 { position: absolute; top: 245px; left: 300px; width: 1px; height: 15px; background: #666; }
+        .conn-cb3-6 { position: absolute; top: 245px; left: 380px; width: 1px; height: 15px; background: #666; }
+        .conn-cb3-9 { position: absolute; top: 245px; left: 467px; width: 1px; height: 15px; background: #666; }
+        .conn-cb3-12 { position: absolute; top: 245px; left: 547px; width: 1px; height: 15px; background: #666; }
+        .conn-cb3-15 { position: absolute; top: 245px; left: 620px; width: 1px; height: 15px; background: #666; }
+        .conn-cb3-18 { position: absolute; top: 245px; left: 700px; width: 1px; height: 15px; background: #666; }
+        .conn-cb3-21 { position: absolute; top: 245px; left: 787px; width: 1px; height: 15px; background: #666; }
+        .conn-cb3-24 { position: absolute; top: 245px; left: 867px; width: 1px; height: 15px; background: #666; }
+        .conn-cb3-27 { position: absolute; top: 245px; left: 960px; width: 1px; height: 15px; background: #666; }
+        
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+        }
+        
+        .legend h3 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 8px;
+        }
+        
+        .legend-items {
+            margin-bottom: 15px;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+            font-size: 14px;
+        }
+        
+        .legend-box {
+            display: inline-block;
+            width: 20px;
+            height: 15px;
+            border: 1px solid #333;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        
+        .legend-box.c13 { background: #f8f9fa; }
+        .legend-box.c19 { background: #e3f2fd; }
+        .legend-box.aux { background: #fff3e0; border-radius: 3px; }
+        
+        .circuit-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+            font-size: 14px;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
@@ -389,6 +642,139 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Wiring Schematic Section -->
+        <div class="schematic-wrapper">
+            <div class="schematic-header">
+                <h2>EA-6026-X Simplified Wiring Schematic</h2>
+                <p>Reference diagram showing outlet-to-circuit-breaker connections</p>
+            </div>
+            
+            <div class="schematic">
+                <div class="input-label-schem">From Input Cable:</div>
+                
+                <div class="header-labels-schem">
+                    <span>LINE (typ.)</span>
+                    <span style="margin-left: 80px;">LOAD (typ.)</span>
+                </div>
+                
+                <!-- Line labels -->
+                <div class="line-label l1">L1</div>
+                <div class="line-label l2">L2</div>
+                <div class="line-label l3">L3</div>
+                <div class="line-label neutral">Neutral</div>
+                <div class="line-label ground">Ground</div>
+                
+                <!-- Main lines -->
+                <div class="line line-l1"></div>
+                <div class="line line-l2"></div>
+                <div class="line line-l3"></div>
+                <div class="line neutral-line"></div>
+                <div class="line ground-line"></div>
+                
+                <!-- Circuit breakers -->
+                <div class="breaker cb1">
+                    <div>2 Pole Breaker</div>
+                    <div>CB1</div>
+                    <div>(20A)</div>
+                </div>
+                <div class="breaker cb2">
+                    <div>2 Pole Breaker</div>
+                    <div>CB2</div>
+                    <div>(20A)</div>
+                </div>
+                <div class="breaker cb3">
+                    <div>2 Pole Breaker</div>
+                    <div>CB3</div>
+                    <div>(20A)</div>
+                </div>
+                
+                <!-- Connection lines -->
+                <div class="conn-cb1-1"></div>
+                <div class="conn-cb1-4"></div>
+                <div class="conn-cb1-7"></div>
+                <div class="conn-cb1-10"></div>
+                <div class="conn-cb1-13"></div>
+                <div class="conn-cb1-16"></div>
+                <div class="conn-cb1-19"></div>
+                <div class="conn-cb1-22"></div>
+                <div class="conn-cb1-25"></div>
+                
+                <div class="conn-cb2-2"></div>
+                <div class="conn-cb2-5"></div>
+                <div class="conn-cb2-8"></div>
+                <div class="conn-cb2-11"></div>
+                <div class="conn-cb2-14"></div>
+                <div class="conn-cb2-17"></div>
+                <div class="conn-cb2-20"></div>
+                <div class="conn-cb2-23"></div>
+                <div class="conn-cb2-26"></div>
+                
+                <div class="conn-cb3-3"></div>
+                <div class="conn-cb3-6"></div>
+                <div class="conn-cb3-9"></div>
+                <div class="conn-cb3-12"></div>
+                <div class="conn-cb3-15"></div>
+                <div class="conn-cb3-18"></div>
+                <div class="conn-cb3-21"></div>
+                <div class="conn-cb3-24"></div>
+                <div class="conn-cb3-27"></div>
+                
+                <!-- Outlets CB1 (L1/L2) -->
+                <div class="outlet-schem c13 out1"><div class="outlet-number">1</div></div>
+                <div class="outlet-schem c13 out4"><div class="outlet-number">4</div></div>
+                <div class="outlet-schem c19 out7"><div class="outlet-number">7</div></div>
+                <div class="outlet-schem c13 out10"><div class="outlet-number">10</div></div>
+                <div class="outlet-schem c13 out13"><div class="outlet-number">13</div></div>
+                <div class="outlet-schem c13 out16"><div class="outlet-number">16</div></div>
+                <div class="outlet-schem c13 out19"><div class="outlet-number">19</div></div>
+                <div class="outlet-schem c19 out22"><div class="outlet-number">22</div></div>
+                <div class="outlet-schem aux out25"><div class="outlet-number">25</div></div>
+                
+                <!-- Outlets CB2 (L2/L3) -->
+                <div class="outlet-schem c13 out2"><div class="outlet-number">2</div></div>
+                <div class="outlet-schem c13 out5"><div class="outlet-number">5</div></div>
+                <div class="outlet-schem c19 out8"><div class="outlet-number">8</div></div>
+                <div class="outlet-schem c19 out11"><div class="outlet-number">11</div></div>
+                <div class="outlet-schem c13 out14"><div class="outlet-number">14</div></div>
+                <div class="outlet-schem c13 out17"><div class="outlet-number">17</div></div>
+                <div class="outlet-schem c13 out20"><div class="outlet-number">20</div></div>
+                <div class="outlet-schem c19 out23"><div class="outlet-number">23</div></div>
+                <div class="outlet-schem aux out26"><div class="outlet-number">26</div></div>
+                
+                <!-- Outlets CB3 (L3/L1) -->
+                <div class="outlet-schem c13 out3"><div class="outlet-number">3</div></div>
+                <div class="outlet-schem c13 out6"><div class="outlet-number">6</div></div>
+                <div class="outlet-schem c19 out9"><div class="outlet-number">9</div></div>
+                <div class="outlet-schem c19 out12"><div class="outlet-number">12</div></div>
+                <div class="outlet-schem c13 out15"><div class="outlet-number">15</div></div>
+                <div class="outlet-schem c13 out18"><div class="outlet-number">18</div></div>
+                <div class="outlet-schem c19 out21"><div class="outlet-number">21</div></div>
+                <div class="outlet-schem c19 out24"><div class="outlet-number">24</div></div>
+                <div class="outlet-schem aux out27"><div class="outlet-number">27</div></div>
+            </div>
+            
+            <div class="legend">
+                <h3>Outlet Types & Circuit Configuration:</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-box c13"></span>C13 Outlets (12A max)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-box c19"></span>C19 Outlets (16A max)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-box aux"></span>5-20R Convenience Outlets (20A max)
+                    </div>
+                </div>
+                <div class="circuit-info">
+                    <strong>Circuit Breaker Assignments:</strong><br>
+                    <strong>CB1 (L1/L2):</strong> Outlets 1, 4, 7, 10, 13, 16, 19, 22, 25<br>
+                    <strong>CB2 (L2/L3):</strong> Outlets 2, 5, 8, 11, 14, 17, 20, 23, 26<br>
+                    <strong>CB3 (L3/L1):</strong> Outlets 3, 6, 9, 12, 15, 18, 21, 24, 27
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -403,7 +789,7 @@
             {outlet: 16, phase: 'L1/L2', type: 'C13', circuit: 'CB1'},
             {outlet: 19, phase: 'L1/L2', type: 'C13', circuit: 'CB1'},
             {outlet: 22, phase: 'L1/L2', type: 'C19', circuit: 'CB1'},
-            {outlet: 25, phase: 'L1/N', type: '5-20R', circuit: 'AUX1'},
+            {outlet: 25, phase: 'L1/N', type: '5-20R', circuit: 'CB1'},
             
             // CB2 (L2/L3) - 20A breaker
             {outlet: 2, phase: 'L2/L3', type: 'C13', circuit: 'CB2'},
@@ -414,7 +800,7 @@
             {outlet: 17, phase: 'L2/L3', type: 'C13', circuit: 'CB2'},
             {outlet: 20, phase: 'L2/L3', type: 'C13', circuit: 'CB2'},
             {outlet: 23, phase: 'L2/L3', type: 'C13', circuit: 'CB2'},
-            {outlet: 26, phase: 'L2/N', type: '5-20R', circuit: 'AUX2'},
+            {outlet: 26, phase: 'L2/N', type: '5-20R', circuit: 'CB2'},
             
             // CB3 (L3/L1) - 20A breaker
             {outlet: 3, phase: 'L3/L1', type: 'C13', circuit: 'CB3'},
@@ -425,7 +811,7 @@
             {outlet: 18, phase: 'L3/L1', type: 'C13', circuit: 'CB3'},
             {outlet: 21, phase: 'L3/L1', type: 'C19', circuit: 'CB3'},
             {outlet: 24, phase: 'L3/L1', type: 'C13', circuit: 'CB3'},
-            {outlet: 27, phase: 'L3/N', type: '5-20R', circuit: 'AUX3'}
+            {outlet: 27, phase: 'L3/N', type: '5-20R', circuit: 'CB3'}
         ];
 
         // Initialize the calculator
