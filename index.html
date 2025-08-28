@@ -199,17 +199,26 @@
         }
         
         /* Export button styling */
-        .export-button {
+        .export-button, .import-button {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
             border: none;
             border-radius: 6px;
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-bottom: 8px;
+        }
+        
+        .export-button {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+        
+        .import-button {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
         }
         
         .export-button:hover {
@@ -218,7 +227,13 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         
-        .export-button:active {
+        .import-button:hover {
+            background: linear-gradient(135deg, #0056b3, #004085);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .export-button:active, .import-button:active {
             transform: translateY(0);
         }
     </style>
@@ -364,7 +379,9 @@
                 </div>
 
                 <div class="calculation-group">
-                    <h4>Export Data</h4>
+                    <h4>Data Management</h4>
+                    <input type="file" id="import-file" accept=".csv" style="display: none;">
+                    <button id="import-btn" class="import-button">Import from CSV</button>
                     <button id="export-btn" class="export-button">Export to CSV</button>
                 </div>
             </div>
@@ -454,6 +471,13 @@
             
             // Add export functionality
             document.getElementById('export-btn').addEventListener('click', exportToCSV);
+            
+            // Add import functionality
+            document.getElementById('import-btn').addEventListener('click', () => {
+                document.getElementById('import-file').click();
+            });
+            
+            document.getElementById('import-file').addEventListener('change', handleImport);
             
             calculateAll();
         }
@@ -687,6 +711,141 @@
                 document.body.removeChild(link);
                 URL.revokeObjectURL(url);
             }
+        }
+
+        function handleImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    parseCSVAndPopulate(e.target.result);
+                } catch (error) {
+                    alert('Error reading file: ' + error.message + '\n\nPlease make sure you\'re importing a CSV file that was exported from this calculator.');
+                    console.error('Import error:', error);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function parseCSVAndPopulate(csvContent) {
+            const lines = csvContent.split('\n');
+            let currentSection = '';
+            let outletData = [];
+            let rackName = '';
+            let voltage = 208;
+            let powerFactor = 90;
+            
+            // Parse the CSV content
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                
+                // Extract header information
+                if (line.startsWith('Rack Name:')) {
+                    rackName = line.split(':')[1].trim();
+                }
+                if (line.startsWith('Input Voltage:')) {
+                    voltage = parseInt(line.split(':')[1].replace('V', '').trim()) || 208;
+                }
+                if (line.startsWith('Power Factor:')) {
+                    powerFactor = parseFloat(line.split(':')[1].replace('%', '').trim()) || 90;
+                }
+                
+                // Find outlet configuration section
+                if (line === 'OUTLET CONFIGURATION') {
+                    currentSection = 'outlets';
+                    continue;
+                }
+                
+                // Skip header row of outlet section
+                if (currentSection === 'outlets' && line.startsWith('Outlet,Circuit,Phase')) {
+                    continue;
+                }
+                
+                // Parse outlet data
+                if (currentSection === 'outlets' && line.includes(',')) {
+                    const parts = parseCSVLine(line);
+                    if (parts.length >= 7) {
+                        outletData.push({
+                            outlet: parts[0],
+                            circuit: parts[1],
+                            phase: parts[2],
+                            type: parts[3],
+                            device: parts[4].replace(/"/g, ''), // Remove quotes
+                            watts: parseInt(parts[5]) || 0,
+                            amps: parts[6]
+                        });
+                    }
+                }
+            }
+            
+            // Populate the form
+            populateForm(rackName, voltage, powerFactor, outletData);
+            
+            // Show success message
+            alert(`Successfully imported configuration for: ${rackName || 'Unnamed Rack'}\n\n` +
+                  `Loaded ${outletData.length} outlet configurations.\n` +
+                  `Settings: ${voltage}V, ${powerFactor}% power factor`);
+        }
+
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current);
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current);
+            return result;
+        }
+
+        function populateForm(rackName, voltage, powerFactor, outletData) {
+            // Set basic parameters
+            if (rackName) {
+                document.getElementById('rackName').value = rackName;
+                updateRackName();
+            }
+            document.getElementById('voltage').value = voltage;
+            document.getElementById('powerFactor').value = powerFactor;
+            
+            // Clear all outlet inputs first
+            document.querySelectorAll('.watts-input, .device-input').forEach(input => {
+                if (input.classList.contains('watts-input')) {
+                    input.value = 0;
+                } else {
+                    input.value = '';
+                }
+            });
+            
+            // Populate outlet data
+            outletData.forEach(data => {
+                // Find the corresponding input field for this outlet
+                const outletIndex = outletConfig.findIndex(config => 
+                    config.outlet.toString() === data.outlet.toString()
+                );
+                
+                if (outletIndex !== -1) {
+                    const wattsInput = document.querySelector(`.watts-input[data-outlet="${outletIndex}"]`);
+                    const deviceInput = document.querySelector(`.device-input[data-outlet="${outletIndex}"]`);
+                    
+                    if (wattsInput) wattsInput.value = data.watts;
+                    if (deviceInput) deviceInput.value = data.device;
+                }
+            });
+            
+            // Recalculate everything
+            calculateAll();
         }
 
         // Initialize when page loads
